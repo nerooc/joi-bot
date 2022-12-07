@@ -1,11 +1,17 @@
-FROM node:alpine
+FROM node:16-alpine
 
-WORKDIR /usr/src/app
+RUN apk add --no-cache python3 g++ make
+
+WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install 
+
+RUN apk add ffmpeg
 
 COPY . .
 
-CMD ["npm", "run", "deploy"]
+RUN npm run build
+
+CMD ["npm", "run", "start"]
