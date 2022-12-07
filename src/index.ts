@@ -1,5 +1,10 @@
 import { Player } from "discord-player";
-import { Client, GatewayIntentBits, Collection } from "discord.js";
+import {
+  Client,
+  GatewayIntentBits,
+  Collection,
+  ActivityType,
+} from "discord.js";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import config from "./config";
@@ -17,7 +22,6 @@ const client = new Client({
   ],
 });
 
-const commands: any[] = [];
 client.commands = new Collection();
 
 // Add the player on the client
@@ -30,6 +34,9 @@ client.player = new Player(client, {
 
 client.on("ready", () => {
   const commands: any[] = [];
+  client.user?.setActivity("your needs", {
+    type: ActivityType.Listening,
+  });
 
   for (const module of Object.values<Command>(commandModules)) {
     commands.push(module.data);
