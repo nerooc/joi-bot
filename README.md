@@ -25,7 +25,7 @@ The JOI bot can be run in a Docker container, which makes it easy to deploy and 
 To host the bot on Google Cloud Platform, you can use the GCE or GKE to manage the deployment and scaling of the bot. This will ensure that the bot is always available and can handle a large number of users without downtime.
 
 ## Deployment architecture
- &nbsp;- The bot's code will be automatically packaged into a container using Google Cloud Build, which will pull the latest version of the code directly from the Github repository.
+ &nbsp;- The bot's code will be automatically packaged into a container using Google Cloud Build, which will pull the latest version of the code directly from the Github repository. (Secret Manager!!)
  
  &nbsp;- The container will be stored in Google Cloud Container Registry, from where it can be easily deployed onto a virtual machine created with Google Cloud Engine.
  
