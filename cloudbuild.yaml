@@ -9,7 +9,7 @@ steps:
     - 'CLIENT_ID=${_CLIENT_ID}'
   # Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/joi', '.']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/joi:$COMMIT_SHA', '.']
   # Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/joi:$COMMIT_SHA']
