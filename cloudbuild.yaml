@@ -13,3 +13,9 @@ steps:
   # Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/joi:$COMMIT_SHA']
+  # Update the container image on the Google Compute Engine instance
+  - name: gcr.io/cloud-builders/gcloud
+    args: [ 'compute', 'instances', 'update-container', 'joi-discord-instance', '--zone=europe-central2-a', '--container-image', 'gcr.io/$PROJECT_ID/joi:$COMMIT_SHA' ]
+
+images:
+  - gcr.io/$PROJECT_ID/joi:$COMMIT_SHA
