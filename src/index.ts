@@ -107,7 +107,7 @@ client.on("interactionCreate", async (interaction) => {
   try {
     const response = await command.execute(interaction, client);
 
-    if (key == "content" || key == "searchterms") {
+    if (key == "content") {
       await firestore
         .collection("user_requests")
         .doc(`${interaction.user.username}-${currentDate}`)
