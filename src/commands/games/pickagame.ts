@@ -28,5 +28,5 @@ export const execute = async (interaction: CommandInteraction) => {
   const gameList = queryString.split(/\s+/);
   const randomGame = gameList[Math.floor(Math.random() * gameList.length)];
 
-  await interaction.reply(randomGame);
+  await interaction.reply("stop playing games");
 };
