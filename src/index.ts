@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Player } from "discord-player";
 import {
   Client,
@@ -7,6 +9,7 @@ import {
 } from "discord.js";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
+import { Firestore } from "@google-cloud/firestore";
 import config from "./config";
 import * as commandModules from "./commands";
 
@@ -20,6 +23,16 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildVoiceStates,
   ],
+});
+
+const key = config.FIRESTORE_PRIVATE_KEY.replace(/\\n/g, "\n");
+
+const firestore = new Firestore({
+  projectId: "joi-discord-bot",
+  credentials: {
+    client_email: config.FIRESTORE_CLIENT_EMAIL,
+    private_key: key,
+  },
 });
 
 client.commands = new Collection();
@@ -59,8 +72,52 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   const command = Object(commandModules)[interaction.commandName];
 
+  let parameter;
+  let key;
+
+  const keys = [
+    "searchterms",
+    "url",
+    "playlist",
+    "query",
+    "text",
+    "gamelist",
+    "content",
+  ];
+
+  for (let i = 0; i < keys.length; i++) {
+    key = keys[i];
+    if (interaction.options.getString(key)) {
+      parameter = interaction.options.getString(key);
+      break;
+    }
+  }
+
+  const currentDate = new Date().toISOString();
+
+  await firestore
+    .collection("user_requests")
+    .doc(`${interaction.user.username}-${currentDate}`)
+    .set({
+      command: interaction.commandName,
+      param: parameter,
+      date: new Date(),
+    });
+
   try {
-    await command.execute(interaction, client);
+    const response = await command.execute(interaction, client);
+
+    if (key == "content" || key == "searchterms") {
+      await firestore
+        .collection("user_requests")
+        .doc(`${interaction.user.username}-${currentDate}`)
+        .set({
+          command: interaction.commandName,
+          param: parameter,
+          response: response,
+          date: new Date(),
+        });
+    }
   } catch (error) {
     console.error(error);
     // @ts-ignore

@@ -25,6 +25,7 @@
     "@discordjs/opus": "^0.8.0",
     "@discordjs/rest": "^1.4.0",
     "@discordjs/voice": "^0.14.0",
+    "@google-cloud/firestore": "^6.4.1",
     "concurrently": "^7.6.0",
     "discord-api-types": "^0.37.20",
     "discord-player": "^5.3.2",

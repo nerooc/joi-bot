@@ -24,9 +24,6 @@ export const execute = async (interaction: CommandInteraction) => {
     return;
   }
 
-  console.log(config.OPENAI_API_KEY);
-  console.log(queryString);
-
   const configuration = new Configuration({
     apiKey: config.OPENAI_API_KEY,
   });
@@ -46,4 +43,6 @@ export const execute = async (interaction: CommandInteraction) => {
 
   // @ts-ignore
   await interaction.editReply(response.data.choices[0].text);
+
+  return response.data.choices[0].text;
 };
