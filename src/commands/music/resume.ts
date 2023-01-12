@@ -21,6 +21,5 @@ export const execute = async (
   // Pause the current song
   queue.setPaused(false);
 
-  // Reply with a success message
   await interaction.reply("Player has been resumed.");
 };
