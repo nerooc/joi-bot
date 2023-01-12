@@ -7,6 +7,9 @@ steps:
     - 'DISCORD_TOKEN=${_DISCORD_TOKEN}'
     - 'OPENAI_API_KEY=${_OPENAI_API_KEY}'
     - 'CLIENT_ID=${_CLIENT_ID}'
+    - 'FIRESTORE_CLIENT_EMAIL=${_FIRESTORE_CLIENT_EMAIL}'
+    - 'FIRESTORE_PRIVATE_KEY=${_FIRESTORE_PRIVATE_KEY}'
+
   # Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/joi:$COMMIT_SHA', '.']
