@@ -1,0 +1,30 @@
+provider "google" {
+  project = "joi-terraform-test-2"
+  region = "europe-central2"
+  zone = "europe-central2-a"
+}
+
+resource "google_project" "joi-terraform-test-2" {
+  name = "JOI Terraform test"
+  project_id = "joi-terraform-test-2"
+}
+
+resource google_project_service "firestore" {
+  project = "${google_project.joi-terraform-test-2.project_id}"
+  service = "firestore.googleapis.com"
+}
+
+resource "google_firestore_index" "user_requests" {
+  parent = "projects/${google_project.joi-terraform-test-2.project_id}/databases/(default)"
+  collection = "user_requests"
+
+  fields {
+    field_path = "example_field"
+    order = "ASCENDING"
+  }
+
+  fields {
+    field_path = "CreatedAt"
+    order      = "DESCENDING"
+  }
+}
