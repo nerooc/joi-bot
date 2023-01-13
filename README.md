@@ -1,6 +1,5 @@
 ![image](https://user-images.githubusercontent.com/31045802/206223046-e853baa6-11df-467d-b711-1033378b17f8.png)
 
-<img align="left" src="https://user-images.githubusercontent.com/31045802/206223512-8458cbe6-120d-4759-9382-2682eff7133a.png" alt="drawing" width="50%"/>
 
 **JOI** is a Discord bot based on the character from the movie **Blade Runner**. It is written in Typescript and uses the Discord.js library to interact with the Discord API. 
 
@@ -30,6 +29,8 @@ To host the bot on Google Cloud Platform, you can use the GCE or GKE to manage t
  &nbsp;- The container will be stored in Google Cloud Container Registry, from where it can be easily deployed onto a virtual machine created with Google Cloud Engine.
  
  &nbsp;- Once the machine is up and running, Google Cloud Monitoring will keep an eye on it to make sure everything is working smoothly. This way, we can make sure that the bot is always available and responding to requests.
+
+![joi-architecture](https://user-images.githubusercontent.com/31045802/212212990-0071ced6-54c1-4647-a4eb-191a8b36e965.png)
 
 ## License
 JOI is licensed under the terms of the MIT License.
